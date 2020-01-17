@@ -24,6 +24,18 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
+
+    /**
+     * 根据商品skuid查询评价数据的后台服务接口
+     * @param SkuId
+     * @return
+     */
+    @RequestMapping("/findSkuId/{SkuId}")
+    public Result<Comment> findSkuId(@PathVariable String SkuId){
+        List<Comment> comments = commentService.findSkuId(Long.valueOf(SkuId));
+        return new Result<Comment>(true,StatusCode.OK,"库存查询成功",comments);
+    }
+
     /***
      * Comment分页条件搜索实现
      * @param comment
@@ -95,6 +107,7 @@ public class CommentController {
      * @param comment
      * @return
      */
+
     @PostMapping
     public Result add(@RequestBody Comment comment){
         //调用CommentService实现添加Comment

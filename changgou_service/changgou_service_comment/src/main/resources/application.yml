@@ -10,6 +10,8 @@ spring:
     password: 123456
   redis:
     host: 192.168.211.132
+  main:
+    allow-bean-definition-overriding: true
 eureka:
   client:
     service-url:

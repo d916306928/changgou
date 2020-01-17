@@ -16,6 +16,9 @@ import java.util.List;
 @RequestMapping("/comment")
 public interface CommentFeign {
 
+
+
+
     /***
      * Comment分页条件搜索实现
      * @param comment

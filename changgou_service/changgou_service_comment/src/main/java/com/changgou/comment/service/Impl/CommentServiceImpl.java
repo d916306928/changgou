@@ -5,11 +5,13 @@ import com.changgou.comment.service.CommentService;
 import com.changgou.goods.pojo.Comment;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import entity.TokenDecode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.Date;
 import java.util.List;
 
 /****
@@ -17,12 +19,27 @@ import java.util.List;
  * @Description:Comment业务层接口实现类
  * @Date 2019/6/14 0:16
  *****/
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @Service
 public class CommentServiceImpl implements CommentService {
 
     @Autowired
     private CommentMapper commentMapper;
 
+
+
+    /**
+     * 根据商品skuid查询评价数据的后台服务接口
+     * @param SkuId
+     * @return
+     */
+    @Override
+    public List<Comment> findSkuId(Long SkuId) {
+        Comment comment = new Comment();
+        comment.setSkuId(SkuId);
+        List<Comment> select = commentMapper.select(comment);
+        return select;
+    }
 
     /**
      * Comment条件+分页查询
@@ -139,7 +156,10 @@ public class CommentServiceImpl implements CommentService {
      */
     @Override
     public void add(Comment comment){
-        commentMapper.insert(comment);
+        String username  = "zhangsan";
+        comment.setUsername(username);
+        comment.setCreateTime(new Date());
+        commentMapper.insertSelective(comment);
     }
 
     /**
@@ -149,6 +169,7 @@ public class CommentServiceImpl implements CommentService {
      */
     @Override
     public Comment findById(Integer id){
+
         return  commentMapper.selectByPrimaryKey(id);
     }
 

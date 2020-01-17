@@ -1,6 +1,7 @@
 package com.changgou.comment.service;
 
 import com.changgou.goods.pojo.Comment;
+import com.changgou.goods.pojo.Sku;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -11,6 +12,14 @@ import java.util.List;
  * @Date 2019/6/14 0:16
  *****/
 public interface CommentService {
+
+
+    /**
+     * 根据商品skuid查询评价数据的后台服务接口
+     * @param SkuId
+     * @return
+     */
+    List<Comment> findSkuId(Long SkuId);
 
     /***
      * Comment多条件分页查询
